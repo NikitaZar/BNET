@@ -7,7 +7,7 @@ import ru.nikitazar.data.api.ApiService
 import ru.nikitazar.data.errors.ApiError
 import ru.nikitazar.data.errors.AppError
 import ru.nikitazar.domain.models.DrugDomain
-import ru.nikitazar.domain.repository.Repository
+import ru.nikitazar.domain.repository.DrugsRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,7 +17,7 @@ const val ENABLE_PLACE_HOLDERS = false
 @Singleton
 class RepositoryImpl @Inject constructor(
     private val api: ApiService,
-) : Repository {
+) : DrugsRepository {
 
     override suspend fun getPage(search: String): Flow<PagingData<DrugDomain>> =
         Pager(

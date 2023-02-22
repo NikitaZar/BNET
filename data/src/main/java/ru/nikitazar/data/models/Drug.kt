@@ -2,6 +2,7 @@ package ru.nikitazar.data.models
 
 import com.google.gson.annotations.SerializedName
 import ru.nikitazar.domain.models.DrugDomain
+import ru.nikitazar.domain.models.Field
 
 data class Drug(
     @SerializedName("id") val id: Int = 0,
@@ -15,10 +16,7 @@ data class Drug(
     fun toDomain() = DrugDomain(
         id = id,
         image = image,
-        categories = categories.toDomain(),
         name = name,
         description = description,
-        documentation = documentation,
-        fields = fields?.map { it.toDomain() }
     )
 }
