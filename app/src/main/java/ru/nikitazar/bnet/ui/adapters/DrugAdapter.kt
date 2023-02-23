@@ -1,10 +1,12 @@
-package ru.nikitazar.bnet.ui
+package ru.nikitazar.bnet.ui.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import ru.nikitazar.bnet.BuildConfig
 import ru.nikitazar.bnet.databinding.CardDrugBinding
 import ru.nikitazar.bnet.ui.utils.load
 import ru.nikitazar.domain.models.DrugDomain
@@ -25,7 +27,7 @@ class DrugViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(drug: DrugDomain) {
         with(binding) {
-            drug.image?.let { image.load(it) }
+            drug.image?.let { image.load(BuildConfig.BASE_URL + it) }
             name.text = drug.name
             description.text = drug.description
         }
