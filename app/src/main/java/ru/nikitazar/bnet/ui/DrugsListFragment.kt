@@ -34,7 +34,7 @@ class DrugsListFragment : Fragment() {
 
         setupList()
         setupSearchInput()
-//        setupSwipeToRefresh()
+        setupSwipeToRefresh()
 
         return binding.root
     }
@@ -45,7 +45,7 @@ class DrugsListFragment : Fragment() {
         val adapterWithLoadState = adapter.withLoadStateFooter(footerAdapter)
         binding.list.adapter = adapterWithLoadState
         observeDrugs(adapter)
-//        scrollingToTopWhenSearching(adapter)
+        scrollingToTopWhenSearching(adapter)
     }
 
     private fun observeDrugs(adapter: DrugAdapter) = lifecycleScope.launchWhenCreated {
@@ -59,22 +59,22 @@ class DrugsListFragment : Fragment() {
         //viewModel.setSearch()
     }
 
-//    private fun setupSwipeToRefresh() {
-//        binding.swipeRefresh.setOnRefreshListener {
-//            viewModel.refresh()
-//        }
-//    }
-//
-//    private fun scrollingToTopWhenSearching(adapter: DrugAdapter) = lifecycleScope.launch {
-//        getRefreshLoadStateFlow(adapter)
-//            .simpleScan(count = 2)
-//            .collectLatest { (previousState, currentState) ->
-//                if (previousState is LoadState.Loading && currentState is LoadState.NotLoading) {
-//                    binding.list.scrollToPosition(0)
-//                    binding.swipeRefresh.isRefreshing = false
-//                }
-//            }
-//    }
+    private fun setupSwipeToRefresh() {
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.refresh()
+        }
+    }
+
+    private fun scrollingToTopWhenSearching(adapter: DrugAdapter) = lifecycleScope.launch {
+        getRefreshLoadStateFlow(adapter)
+            .simpleScan(count = 2)
+            .collectLatest { (previousState, currentState) ->
+                if (previousState is LoadState.Loading && currentState is LoadState.NotLoading) {
+                    binding.list.scrollToPosition(0)
+                    binding.swipeRefresh.isRefreshing = false
+                }
+            }
+    }
 
     private fun getRefreshLoadStateFlow(adapter: DrugAdapter) = adapter.loadStateFlow.map { it.refresh }
 
