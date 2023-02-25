@@ -1,23 +1,20 @@
 package ru.nikitazar.bnet.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.SearchView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import android.widget.*
+import androidx.fragment.app.*
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.nikitazar.bnet.R
 import ru.nikitazar.bnet.databinding.FragmentDrugsListBinding
-import ru.nikitazar.bnet.ui.adapters.DrugAdapter
-import ru.nikitazar.bnet.ui.adapters.PageLoadStateAdapter
+import ru.nikitazar.bnet.ui.adapters.*
 import ru.nikitazar.bnet.ui.utils.simpleScan
-import ru.nikitazar.bnet.viewModel.DrugsViewModel
+import ru.nikitazar.bnet.viewModel.*
 
 
 @AndroidEntryPoint
@@ -74,6 +71,7 @@ class DrugsListFragment : Fragment(), SearchView.OnQueryTextListener, MenuItem.O
         val adapterWithLoadState = adapter.withLoadStateFooter(footerAdapter)
         binding.list.adapter = adapterWithLoadState
         observeDrugs(adapter)
+        observeErrors(adapter)
         scrollingToTopWhenSearching(adapter)
     }
 
@@ -103,6 +101,18 @@ class DrugsListFragment : Fragment(), SearchView.OnQueryTextListener, MenuItem.O
         }
     }
 
+    private fun observeErrors(adapter: DrugAdapter) {
+        adapter.addLoadStateListener {
+            if (it.refresh is LoadState.Error) {
+                val errText = getString(R.string.err_req_mes)
+                val btText = getString(R.string.err_bt_snack_bar_text)
+                Snackbar.make(binding.root, errText, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(btText) { viewModel.refresh() }
+                    .show()
+            }
+        }
+    }
+
     private fun scrollingToTopWhenSearching(adapter: DrugAdapter) = lifecycleScope.launch {
         getRefreshLoadStateFlow(adapter)
             .simpleScan(count = 2)
@@ -115,5 +125,4 @@ class DrugsListFragment : Fragment(), SearchView.OnQueryTextListener, MenuItem.O
     }
 
     private fun getRefreshLoadStateFlow(adapter: DrugAdapter) = adapter.loadStateFlow.map { it.refresh }
-
 }
