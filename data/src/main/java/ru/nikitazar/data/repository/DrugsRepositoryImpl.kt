@@ -45,7 +45,7 @@ class DrugsRepositoryImpl @Inject constructor(
 
             val drug = response.body() ?: throw ApiError(response.code(), response.message())
             return drug.toDomain()
-        } catch (e: AppError) {
+        } catch (e: Exception) {
             throw AppError.from(e)
         }
     }
