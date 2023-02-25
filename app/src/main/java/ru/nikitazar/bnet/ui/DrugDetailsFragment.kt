@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.*
 import dagger.hilt.android.AndroidEntryPoint
 import ru.nikitazar.bnet.BuildConfig
+import ru.nikitazar.bnet.MainActivity
 import ru.nikitazar.bnet.databinding.FragmentDrugDetailsBinding
 import ru.nikitazar.bnet.ui.utils.IntArg
 import ru.nikitazar.bnet.ui.utils.load
@@ -27,7 +28,7 @@ class DrugDetailsFragment : Fragment() {
     ): View {
         binding = FragmentDrugDetailsBinding.inflate(layoutInflater, container, false)
 
-        activity?.actionBar?.title = ""
+        (requireActivity() as MainActivity).supportActionBar?.title = ""
 
         arguments?.intArg?.let { id -> viewModel.getById(id) }
 

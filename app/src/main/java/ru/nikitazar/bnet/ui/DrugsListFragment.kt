@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import ru.nikitazar.bnet.MainActivity
 import ru.nikitazar.bnet.R
 import ru.nikitazar.bnet.databinding.FragmentDrugsListBinding
 import ru.nikitazar.bnet.ui.DrugDetailsFragment.Companion.intArg
@@ -61,7 +62,7 @@ class DrugsListFragment : Fragment(), SearchView.OnQueryTextListener, MenuItem.O
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDrugsListBinding.inflate(layoutInflater, container, false)
-
+        (requireActivity() as MainActivity).supportActionBar?.title = getString(R.string.fragment_drugs_list_label)
         setupList()
         setupSwipeToRefresh()
 
