@@ -17,7 +17,6 @@ class DrugSource @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Drug> =
         try {
             val index = params.key ?: 0
-            Log.i("observeDrugs", params.key.toString())
             val limit = params.loadSize
             val offset = index * limit
 

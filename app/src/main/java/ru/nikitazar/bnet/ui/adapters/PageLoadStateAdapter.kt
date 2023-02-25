@@ -6,7 +6,6 @@ import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.nikitazar.bnet.databinding.CardPageLoadStateBinding
 
 class PageLoadStateAdapter : LoadStateAdapter<PageLoadStateViewHolder>() {

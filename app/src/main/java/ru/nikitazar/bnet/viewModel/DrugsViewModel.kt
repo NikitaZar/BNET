@@ -35,7 +35,6 @@ class DrugsViewModel @Inject constructor(
         }
         .cachedIn(viewModelScope)
 
-
     fun setSearch(value: String) {
         if (search.value == value) return
         search.value = value
