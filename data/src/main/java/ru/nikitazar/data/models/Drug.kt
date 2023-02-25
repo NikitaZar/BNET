@@ -18,5 +18,6 @@ data class Drug(
         image = image,
         name = name,
         description = description,
+        categoryIcon = categories.icon
     )
 }

@@ -1,5 +1,6 @@
 package ru.nikitazar.bnet.viewModel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
@@ -12,6 +13,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.launch
 import ru.nikitazar.domain.models.DrugDomain
 import ru.nikitazar.domain.usecase.GetByIdUseCase
 import ru.nikitazar.domain.usecase.GetPageUseCase
@@ -21,8 +23,7 @@ private const val DEBOUNCE = 500L
 
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 @HiltViewModel
-class DrugsViewModel @Inject constructor(
-    private val getByIdUseCase: GetByIdUseCase,
+class ListViewModel @Inject constructor(
     private val getPageUseCase: GetPageUseCase
 ) : ViewModel() {
 

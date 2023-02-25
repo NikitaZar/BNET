@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="circleImageViewStyle">
+    <style name="circleImageViewStyle_space2x">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/space2x</item>
+    </style>
+
+    <style name="circleImageViewStyle_space8x">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/space8x</item>
     </style>
 
     <!-- Default text styles -->
@@ -22,5 +27,11 @@
     <!-- ActionBar title text -->
     <style name="CustomActionBarTitleText" parent="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Widget.AppTheme.StarCheckBox" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/favorite_bt_tint</item>
+        <item name="android:minWidth">@dimen/ic_bt_size</item>
+        <item name="android:minHeight">@dimen/ic_bt_size</item>
     </style>
 </resources>

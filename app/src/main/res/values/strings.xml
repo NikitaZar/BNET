@@ -2,7 +2,7 @@
     <string name="app_name">BNET</string>
 
     <string name="sample_description_text">Фосфорорганический инсектоакарицид контактно-кишечного действия, предназначен для подавления широкого спектра вредителей в посевах зерновых, зернобобовых и других культур.</string>
-    <string name="sample_categories_name_text">Вредители зерновых культур</string>
+    <string name="sample_categories_name_text">ДВД Шанс, КС</string>
 
     <string name="fragment_drugs_list_label">Список</string>
     <string name="search_title">Поиск</string>
@@ -10,4 +10,7 @@
 
     <!--Errors msg-->
     <string name="err_req_mes">Что-то пошло не так. Попробуйте позже…</string>
+
+
+    <string name="bt_buy_nav_text">Где купить</string>
 </resources>

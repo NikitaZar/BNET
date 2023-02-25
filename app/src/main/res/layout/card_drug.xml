@@ -21,7 +21,7 @@
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/card_image_height"
-            app:shapeAppearanceOverlay="@style/circleImageViewStyle"
+            app:shapeAppearanceOverlay="@style/circleImageViewStyle_space2x"
             app:srcCompat="@color/black" />
 
         <TextView

@@ -1,10 +1,12 @@
 package ru.nikitazar.bnet.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.*
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -12,6 +14,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.nikitazar.bnet.R
 import ru.nikitazar.bnet.databinding.FragmentDrugsListBinding
+import ru.nikitazar.bnet.ui.DrugDetailsFragment.Companion.intArg
 import ru.nikitazar.bnet.ui.adapters.*
 import ru.nikitazar.bnet.ui.utils.simpleScan
 import ru.nikitazar.bnet.viewModel.*
@@ -21,7 +24,7 @@ import ru.nikitazar.bnet.viewModel.*
 class DrugsListFragment : Fragment(), SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
 
     lateinit var binding: FragmentDrugsListBinding
-    private val viewModel: DrugsViewModel by viewModels()
+    private val viewModel: ListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,13 +69,22 @@ class DrugsListFragment : Fragment(), SearchView.OnQueryTextListener, MenuItem.O
     }
 
     private fun setupList() {
-        val adapter = DrugAdapter()
+        val adapter = DrugAdapter(navigateToDetails())
         val footerAdapter = PageLoadStateAdapter()
         val adapterWithLoadState = adapter.withLoadStateFooter(footerAdapter)
         binding.list.adapter = adapterWithLoadState
         observeDrugs(adapter)
         observeErrors(adapter)
         scrollingToTopWhenSearching(adapter)
+    }
+
+    private fun navigateToDetails() = object : OnInteractionListener {
+        override fun onItemClickListener(id: Int) {
+            findNavController().navigate(
+                resId = R.id.action_drugsListFragment_to_drugDetailsFragment,
+                args = Bundle().apply { intArg = id }
+            )
+        }
     }
 
     private fun setupSearch(menu: Menu, inflater: MenuInflater) {
